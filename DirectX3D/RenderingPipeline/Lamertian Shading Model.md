@@ -3,7 +3,7 @@
 #### 0. 음영(Shading) 처리 기본 개념 이해
 - 빛에 의하여 색상이 밝아지거나 어두워 지는 것. 
 - 6면체 큐브도 단일 색상으로 표현되면 색상만 표현되기 때문에 2차원으로 보임.
-#### 1. Lamertian Shading Model
+#### 1. Lambertian Shading Model
 ##### 기초적인 빛(Light)의 종류
 
 * Direction Light 
