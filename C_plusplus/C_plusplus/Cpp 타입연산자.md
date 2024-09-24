@@ -73,10 +73,51 @@ int main() {
 
 ## 2. dynamic_cast
 dynamic_cast는 C++에서 주로 다형성(polymorphism)을 사용하는 상속 관계에서 안전하게 타입 변환을 수행할 때 사용되는 캐스팅 연산자입니다. 주로 런타임에 타입 정보를 확인하여 안전하게 다운캐스팅을 수행하며, RTTI(Run-Time Type Information)을 기반으로 작동합니다.
-1. 상속관계에 있는 포인터 또는 차조 타입을 변환하는 데 사용됨.
+
+C++의 모든 클래스에는 가상함수에 대한 포인터 목록이 포함된 가상 함수 테이블(vtable)이 있습니다. 다형성 클래스 객체가 생성되면 해당 유형에 해당하는 가상함수 테이블(vtable)이 할당됩니다.
+1. 상속관계에 있는 포인터 또는 참조 타입을 변환하는 데 사용됨.
 2. 주로 다운캐스팅(기본 클래스 -> 파생 클래스)에서 안정성 보장.
 3. 성공 여부를 확인할 수 있음. 포인터 변환에 실패하면 nullptr을 반환하고, 참조 변환에 실패하면 std::bad_cast 예외를 던짐.
 4. 클래스가 가상 함수를 포함하고 있어야함.(dynamic)_
 ## 3. reinterpret_cast
 
 ## 4. const_cast
+const_cast<new_type>(expression)
+포인터(pointer) 또는 참조형(reference)의 상수성(const)를 잠깐 제거해주는데 사용
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+	// 포인터(pointer) 상수성(const) 제거
+
+	char str[] = "apple";
+	const char* ptr = str;
+	cout << "before : " << str << endl;
+
+	//ptr[0] = 'Q';		// error
+
+	char* c = const_cast<char*>(ptr);
+	c[0] = 'Q';
+	cout << "after : " << str << endl;
+
+
+	//참조형(reference) 상수성(const) 제거
+
+	int tmp = 15;
+	const int& ref = tmp;
+	cout << "before : " << tmp << endl;
+
+	// ref = 20;	// error
+
+	int& r = const_cast<int&>(ref);
+	r = 30;
+	cout << "after : " << tmp << endl;
+
+	return 0;
+}
+```
+
+volatile 키워드를 잠깐 제거해 주는 데에도 사용 가능.
